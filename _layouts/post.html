@@ -2,16 +2,20 @@
 layout: default
 ---
 <article class="post">
-  <header class="post-header">
+  <header class="post-header fade-in">
     <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-meta">
+    <div class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">
         {{ page.date | date: "%Y年%m月%d日" }}
       </time>
-      {% if page.categories %}· {{ page.categories | join: " / " }}{% endif %}
-    </p>
+      {% if page.categories %}
+        {% for category in page.categories %}
+          <span class="meta-tag">{{ category }}</span>
+        {% endfor %}
+      {% endif %}
+    </div>
   </header>
-  <div class="post-content">
+  <div class="post-content fade-in fade-in-delay-1">
     {{ content }}
   </div>
 </article>

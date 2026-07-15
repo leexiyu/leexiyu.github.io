@@ -1,7 +1,7 @@
 title: leexiyu's Blog
-description: 个人技术博客
+description: 前端开发者 · 记录技术与思考
 author: leexiyu
-email: your-email@example.com
+email: leexiyu@outlook.com
 url: "https://leexiyu.github.io"
 
 markdown: kramdown
@@ -20,3 +20,6 @@ defaults:
     values:
       layout: "post"
       author: "leexiyu"
+
+feed:
+  path: /feed.xml

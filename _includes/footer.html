@@ -1,8 +1,12 @@
 <footer class="site-footer">
-  <div class="container">
-    <p>&copy; {{ 'now' | date: "%Y" }} {{ site.author }}. All rights reserved.</p>
-    <p>
-      <a href="https://github.com/leexiyu" target="_blank">GitHub</a>
-    </p>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="https://github.com/leexiyu" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:{{ site.email }}">Email</a>
+      {% if site.rss or site.feed %}
+      <a href="{{ '/feed.xml' | relative_url }}" class="footer-rss" target="_blank">RSS</a>
+      {% endif %}
+    </div>
+    <p>&copy; {{ 'now' | date: "%Y" }} {{ site.author }}. Built with Jekyll</p>
   </div>
 </footer>
