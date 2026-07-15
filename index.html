@@ -1,1 +1,25 @@
-<h1>This is leexiyu</h1>
+---
+layout: default
+title: 首页
+---
+<div class="home">
+  <section class="intro">
+    <h1>Hi, I'm leexiyu 👋</h1>
+    <p>{{ site.description }}</p>
+  </section>
+  
+  <section class="posts">
+    <h2>最新文章</h2>
+    <ul class="post-list">
+      {% for post in site.posts limit: 5 %}
+      <li>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if site.posts.size > 5 %}
+    <p class="view-all"><a href="{{ '/archive/' | relative_url }}">查看全部文章 →</a></p>
+    {% endif %}
+  </section>
+</div>

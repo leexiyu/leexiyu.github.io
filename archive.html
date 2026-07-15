@@ -1,0 +1,14 @@
+---
+layout: default
+title: 归档
+permalink: /archive/
+---
+<h1>文章归档</h1>
+<ul class="post-list">
+  {% for post in site.posts %}
+  <li>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+  </li>
+  {% endfor %}
+</ul>
