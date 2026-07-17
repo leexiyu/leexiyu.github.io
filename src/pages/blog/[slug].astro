@@ -1,56 +1,29 @@
 ---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-// 模拟文章数据
-const posts = {
-  'first-post': {
-    title: '我的第一篇博客文章',
-    date: '2026-07-16',
-    content: `
-      <p>欢迎来到我的博客！这是我用 Astro 从零开始搭建的个人网站。</p>
-      <h2>为什么要写博客</h2>
-      <p>写博客是最高效的学习方式之一。当你尝试把学到的知识用自己的话讲清楚时，你会发现很多之前忽略的细节。</p>
-      <h2>技术选型</h2>
-      <p>我选择 Astro 是因为它的"群岛架构"——页面默认是纯静态 HTML，只在需要交互的地方加载 JavaScript。这让博客的加载速度非常快。</p>
-    `
-  },
-  'why-astro': {
-    title: '为什么我选择 Astro 而不是 Next.js',
-    date: '2026-07-15',
-    content: `
-      <p>Next.js 和 Astro 都是优秀的框架，但它们的侧重点不同。</p>
-      <h2>Next.js 更适合应用</h2>
-      <p>Next.js 是一个全栈 React 框架，适合构建复杂的 Web 应用。但对于以内容为主的博客来说，它太重了。</p>
-      <h2>Astro 更适合内容站</h2>
-      <p>Astro 默认零 JavaScript，支持 Markdown/MDX，可以同时使用 Vue、React、Svelte 组件。对于博客来说，这是完美的选择。</p>
-    `
-  },
-  'typescript-notes': {
-    title: 'TypeScript 学习笔记',
-    date: '2026-07-10',
-    content: `
-      <p>TypeScript 是 JavaScript 的超集，添加了静态类型系统。</p>
-      <h2>接口 vs 类型别名</h2>
-      <p>接口（interface）和类型别名（type）在很多场景下可以互换，但接口更适合描述对象结构，类型别名更适合联合类型。</p>
-    `
-  }
-};
-
-const { slug } = Astro.params;
-const post = slug ? posts[slug as keyof typeof posts] : undefined;
-
-if (!post) {
-  return Astro.redirect('/404');
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
 }
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+  const { Content } = await render(post);
 ---
 
-<BaseLayout title={`${post.title} - Leexy Blog`}>
+<BaseLayout title={`${post.data.title} - Leexy Blog`}>
   <article>
     <header class="article-header">
-      <h1>{post.title}</h1>
-      <div class="post-meta">📅 {post.date}</div>
+      <h1>{post.data.title}</h1>
+      <div class="post-meta">📅 {post.data.pubDate.toLocaleDateString()}</div>
     </header>
     
-    <div class="article-content" set:html={post.content} />
+    <div class="article-content">
+      <Content />
+    </div>
   </article>
 </BaseLayout>
