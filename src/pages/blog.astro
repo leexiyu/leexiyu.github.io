@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// 模拟文章数据（后面可以换成真实的 Markdown 文件）
+const posts = [
+  {
+    title: '我的第一篇博客文章',
+    date: '2026-07-16',
+    excerpt: '这是我用 Astro 搭建的个人博客的第一篇文章，记录了整个搭建过程和遇到的一些问题...',
+    slug: 'first-post'
+  },
+  {
+    title: '为什么我选择 Astro 而不是 Next.js',
+    date: '2026-07-15',
+    excerpt: 'Astro 的群岛架构让内容站拥有极致的性能，同时又能灵活使用 Vue、React 等框架组件...',
+    slug: 'why-astro'
+  },
+  {
+    title: 'TypeScript 学习笔记',
+    date: '2026-07-10',
+    excerpt: 'TypeScript 已经成为现代前端开发的标配，这篇笔记整理了我在实际项目中常用的类型技巧...',
+    slug: 'typescript-notes'
+  }
+];
+---
+
+<BaseLayout title="文章列表 - Leexy Blog">
+  <h1 style="margin-bottom: 2rem; font-size: 2rem;">📚 所有文章</h1>
+  
+  <div class="post-list">
+    {posts.map(post => (
+      <article class="post-card">
+        <h2><a href={`/blog/${post.slug}`}>{post.title}</a></h2>
+        <div class="post-meta">📅 {post.date}</div>
+        <p class="post-excerpt">{post.excerpt}</p>
+      </article>
+    ))}
+  </div>
+</BaseLayout>
